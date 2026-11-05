@@ -1,0 +1,75 @@
+### Peticiones de ejemplo para la extensión REST Client (VS Code)
+@baseUrl = http://localhost:8000/api
+
+### Listar todos los usuarios (200)
+GET {{baseUrl}}/users
+
+### Obtener usuario por ID (200)
+GET {{baseUrl}}/users/1
+
+### Obtener usuario inexistente (404)
+GET {{baseUrl}}/users/999
+
+### Crear usuario (201)
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "María López",
+  "email": "maria.lopez@isil.pe",
+  "password": "maria2026"
+}
+
+### Crear usuario con datos inválidos (400)
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "",
+  "email": "correo-invalido",
+  "password": "123"
+}
+
+### Crear usuario con email duplicado (400)
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "Ana Duplicada",
+  "email": "ana.torres@isil.pe",
+  "password": "secret123"
+}
+
+### Actualizar usuario sin cambiar contraseña (200)
+PUT {{baseUrl}}/users/1
+Content-Type: application/json
+
+{
+  "name": "Ana Torres Actualizada",
+  "email": "ana.torres@isil.pe"
+}
+
+### Actualizar usuario cambiando contraseña (200)
+PUT {{baseUrl}}/users/1
+Content-Type: application/json
+
+{
+  "name": "Ana Torres",
+  "email": "ana.torres@isil.pe",
+  "password": "nuevaClave99"
+}
+
+### Actualizar usuario inexistente (404)
+PUT {{baseUrl}}/users/999
+Content-Type: application/json
+
+{
+  "name": "Nadie",
+  "email": "nadie@isil.pe"
+}
+
+### Eliminar usuario (200)
+DELETE {{baseUrl}}/users/2
+
+### Eliminar usuario inexistente (404)
+DELETE {{baseUrl}}/users/999
