@@ -79,6 +79,26 @@ Estructura de la tabla `users`:
 | `password`   | VARCHAR(255)    | Se guarda encriptada con `password_hash()` |
 | `created_at` | TIMESTAMP       | Se llena automáticamente al crear         |
 
+Script SQL de la tabla `users` (incluido en `database/schema.sql`):
+
+```sql
+CREATE DATABASE IF NOT EXISTS dbisildemo
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE dbisildemo;
+
+CREATE TABLE IF NOT EXISTS users (
+    id          INT UNSIGNED  NOT NULL AUTO_INCREMENT,
+    name        VARCHAR(100)  NOT NULL,
+    email       VARCHAR(150)  NOT NULL,
+    password    VARCHAR(255)  NOT NULL,
+    created_at  TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    UNIQUE KEY uq_users_email (email)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+
 ### 3.3 Configurar la conexión
 
 Editar los valores por defecto en `src/config/Database.php`:
@@ -275,11 +295,20 @@ Si la base de datos no está disponible o hay un error inesperado:
 > `curl -X POST http://localhost:8000/api/users -H "Content-Type: application/json" -d "{\"name\":\"María\",\"email\":\"maria@isil.pe\",\"password\":\"maria2026\"}"`
 > O usa Postman / Thunder Client con el body en formato **raw → JSON**.
 
----
+### 5.7 Pruebas con Postman
 
+1. Crear una nueva petición y elegir el método (`GET`, `POST`, `PUT` o `DELETE`).
+2. Escribir la URL, por ejemplo `http://localhost:8000/api/users` o `http://localhost:8000/api/users/1`.
+3. Para `POST` y `PUT`: ir a **Body → raw → JSON** y pegar el JSON, por ejemplo:
+   ```json
+   { "name": "María López", "email": "maria.lopez@isil.pe", "password": "maria2026" }
+   ```
+4. Pulsar **Send** y revisar el código de estado (200, 201, 400, 404 o 500) y la respuesta JSON.
+---
 ## 6. Usuarios de prueba
 
 | Email                  | Contraseña  |
 |------------------------|-------------|
 | ana.torres@isil.pe     | secret123   |
 | luis.ramirez@isil.pe   | clave456    |
+
