@@ -60,7 +60,7 @@ El script `database/schema.sql` crea la base de datos `dbisildemo`, la tabla `us
 **Opción A: desde la terminal**
 
 ```bash
-mysql -u root -p -P 3308 < database/schema.sql
+mysql -u root -p -P 3306 < database/schema.sql
 ```
 
 **Opción B: desde phpMyAdmin**
@@ -85,7 +85,7 @@ Editar los valores por defecto en `src/config/Database.php`:
 
 ```php
 $host     = getenv('DB_HOST') ?: '127.0.0.1';
-$port     = getenv('DB_PORT') ?: 3308;      // XAMPP suele usar 3306
+$port     = getenv('DB_PORT') ?: 3306;      // XAMPP suele usar 3306
 $dbname   = getenv('DB_NAME') ?: 'dbisildemo';
 $user     = getenv('DB_USER') ?: 'root';
 $password = getenv('DB_PASS') ?: '';
